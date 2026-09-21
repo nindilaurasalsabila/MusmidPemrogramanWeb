@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Pesanan - Pre-Order Kantin Kampus</title>
+    <!-- LINK CSS -->
+    <link rel="stylesheet" href="Assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>Kantin Kampus</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Daftar Menu</a></li>
+                <li><a href="keranjang.html">Keranjang</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="status-container">
+        <h2>Pelacakan & Riwayat Pesanan</h2>
+
+        <!-- KARTU PESANAN AKTIF -->
+        <div class="status-card">
+            <div class="status-header">
+                <div>
+                    <h3>#ORD-20260921-01</h3>
+                    <small style="color: var(--text-muted);">Estimasi Ambil: 12:00 WIB</small>
+                </div>
+                <span class="badge-status badge-process">Sedang Disiapkan</span>
+            </div>
+
+            <!-- TIMELINE STATUS -->
+            <div class="order-steps">
+                <div class="step-item active">
+                    <div class="icon">✓</div>
+                    <span>Diterima</span>
+                </div>
+                <div class="step-item active">
+                    <div class="icon">2</div>
+                    <span>Dimasak</span>
+                </div>
+                <div class="step-item">
+                    <div class="icon">3</div>
+                    <span>Siap Diambil</span>
+                </div>
+                <div class="step-item">
+                    <div class="icon">4</div>
+                    <span>Selesai</span>
+                </div>
+            </div>
+
+            <div class="order-detail-list">
+                <p><strong>Stand:</strong> Kantin Ibu Siti</p>
+                <p><strong>Pesanan:</strong> 1x Nasi Goreng Ayam (Pedas sedang)</p>
+                <p><strong>Total Pembayaran:</strong> <strong style="color: var(--primary-red);">Rp 12.000</strong> (QRIS)</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Pre-Order Kantin Kampus</p>
+    </footer>
+</body>
+</html>

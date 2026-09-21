@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Penjual - Kantin Ibu Siti</title>
+    <link rel="stylesheet" href=".../Assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard Penjual - Kantin Ibu Siti</h1>
+        <nav>
+            <a href="dashboard.html">Pesanan Masuk</a> | 
+            <a href="menu.html">Kelola Menu & Stok</a> | 
+            <a href="../login.html">Keluar</a>
+        </nav>
+    </header>
+    <hr>
+    <main>
+        <h2>Daftar Pesanan Pre-Order Masuk</h2>
+        
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>ID Pesanan</th>
+                    <th>Nama Mahasiswa</th>
+                    <th>Detail Pesanan</th>
+                    <th>Jam Ambil</th>
+                    <th>Status Sekarang</th>
+                    <th>Ubah Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>#ORD-20260921-01</td>
+                    <td>Budi Santoso</td>
+                    <td>1x Nasi Goreng Ayam (Pedas sedang, tanpa acar)</td>
+                    <td>12:15 WIB</td>
+                    <td><strong>Sedang Dimasak</strong></td>
+                    <td>
+                        <form action="#" method="POST">
+                            <select name="status">
+                                <option value="menunggu">Menunggu Konfirmasi</option>
+                                <option value="dimasak" selected>Sedang Dimasak</option>
+                                <option value="siap">Siap Diambil</option>
+                                <option value="selesai">Selesai</option>
+                            </select>
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <hr>
+    <footer>
+        <p>&copy; 2026 Panel Penjual Kantin Kampus</p>
+    </footer>
+</body>
+</html>

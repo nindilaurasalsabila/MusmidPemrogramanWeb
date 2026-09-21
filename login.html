@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pre-Order Kantin Kampus</title>
+    <link rel="stylesheet" href="Assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>TapEat</h1>
+    </header>
+    <hr>
+    <main class="login-container">
+        <section>
+            <h2>Masuk ke Akun Anda</h2>
+            <form action="index.html" method="GET">
+                <div>
+                    <label for="email">Email Kampus / Username:</label><br>
+                    <input type="email" id="email" name="email" placeholder="mahasiswa@student.ac.id" required>
+                </div>
+                <br>
+                <div>
+                    <label for="password">Kata Sandi:</label><br>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <br>
+                <div>
+                    <label for="role">Masuk Sebagai:</label><br>
+                    <select id="role" name="role">
+                        <option value="mahasiswa">Mahasiswa / Pembeli</option>
+                        <option value="penjual">Penjual / Stand Kantin</option>
+                    </select>
+                </div>
+                <br>
+                <button type="submit">Masuk</button>
+            </form>
+            <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+        </section>
+    </main>
+    <hr>
+    <footer>
+        <p>&copy; 2026 Pre-Order Kantin Kampus</p>
+    </footer>
+</body>
+</html>

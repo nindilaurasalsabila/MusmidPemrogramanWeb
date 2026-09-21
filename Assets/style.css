@@ -1,0 +1,641 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+:root {
+    --primary-red: #e0292e;       
+    --green-accent: #00880c;     
+    --text-main: #111111;
+    --text-muted: #676767;
+    --bg-page: #ffffff;
+    --bg-card: #ffffff;
+    --border-light: #e8e8e8;
+    --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+hr {
+    display: none; 
+}
+
+
+header {
+    background-color: #ffffff;
+    padding: 12px 32px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    color: var(--primary-red);
+    font-size: 2 rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 28px;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding-bottom: 4px;
+}
+
+nav a:hover {
+    color: var(--primary-red);
+    border-bottom: 2px solid var(--primary-red);
+}
+
+#search-filter {
+    margin: 20px 0 30px 0;
+}
+
+#search-filter form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+input[type="text"],
+select {
+    padding: 10px 18px;
+    border: 1px solid var(--border-light);
+    border-radius: 24px; /* Sudut membulat */
+    font-size: 0.9rem;
+    background-color: #f9f9f9;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+    background-color: #ffffff;
+    border-color: var(--text-muted);
+}
+
+#search-filter input[type="text"] {
+    flex: 1;
+}
+
+#search-filter button {
+    background-color: var(--green-accent);
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#daftar-makanan h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#daftar-makanan {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.food-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px; /* Sudut melengkung halus */
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s ease;
+}
+
+.food-card:hover {
+    transform: translateY(-4px);
+}
+
+.food-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.food-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+.food-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.food-card p strong {
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+/* Tombol Aksi di Card */
+.food-card a,
+.food-card button {
+    margin-top: 8px;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.food-card a {
+    background-color: #f1f1f1;
+    color: var(--text-main);
+}
+
+.food-card button {
+    background-color: var(--primary-red);
+    color: #ffffff;
+    border: none;
+}
+
+
+form {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+form label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="time"],
+textarea {
+    width: 100%;
+    padding: 10px 14px;
+    margin-top: 6px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+    margin-top: 16px;
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+th {
+    background-color: #f8f8f8;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+mark {
+    background-color: #fff0f0;
+    color: var(--primary-red);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-light);
+    margin-top: 40px;
+}
+ /* ==========================================
+   8. TAMPILAN KHUSUS HALAMAN LOGIN & REGISTER
+   ========================================== */
+.login-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 32px 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+}
+
+.login-container h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+.login-container form {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    max-width: 100%;
+    text-align: left;
+}
+
+.login-container form div {
+    margin-bottom: 16px;
+}
+
+.login-container label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-muted);
+}
+
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 24px;
+    background-color: var(--primary-red);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-container p {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.login-container p a {
+    color: var(--green-accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ==========================================
+   9. TAMPILAN KHUSUS HALAMAN KERANJANG
+   ========================================== */
+.cart-section {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 24px;
+}
+
+.cart-section h2, 
+.cart-section h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* Penyesuaian Tabel Keranjang */
+.cart-table {
+    box-shadow: none;
+    border: none;
+    margin-top: 0;
+}
+
+.cart-table th {
+    background-color: #f8f8f8;
+    color: var(--text-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.cart-table td {
+    vertical-align: middle;
+}
+
+/* Tombol Hapus di Keranjang */
+.btn-delete {
+    background-color: #fff0f0;
+    color: var(--primary-red);
+    border: 1px solid var(--primary-red);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background-color: var(--primary-red);
+    color: #ffffff;
+}
+
+/* Form Pre-Order & Pengambilan */
+.checkout-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    max-width: 100%;
+}
+
+.checkout-form .form-group-full {
+    grid-column: span 2;
+}
+
+.checkout-form button[type="submit"] {
+    grid-column: span 2;
+    background-color: var(--green-accent);
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* ==========================================
+   10. TAMPILAN KHUSUS HALAMAN DETAIL MAKANAN
+   ========================================== */
+.detail-container {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.detail-card {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.detail-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.detail-info h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.detail-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.detail-info p strong {
+    color: var(--text-main);
+}
+
+.detail-info .price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    margin: 12px 0;
+}
+
+/* Form Pemesanan di Detail */
+.detail-form {
+    margin-top: 16px;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    max-width: 100%;
+}
+
+.detail-form .form-group {
+    margin-bottom: 12px;
+}
+
+.detail-form label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.detail-form button[type="submit"] {
+    width: 100%;
+    background-color: var(--primary-red);
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Responsif untuk Layar HP */
+@media (max-width: 600px) {
+    .detail-card {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*untuk register page
+/* Meratakan teks tombol dan link di bawah form ke tengah */
+.login-container p {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center; /* Memastikan teks link "Sudah punya akun" di tengah */
+}
+
+.login-container h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-main);
+    text-align: center; /* Memastikan judul "Pendaftaran Mahasiswa" di tengah */
+}
+
+/* ==========================================
+   11. TAMPILAN KHUSUS HALAMAN STATUS PESANAN
+   ========================================== */
+.status-container {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    max-width: 850px;
+    margin: 20px auto;
+}
+
+.status-card {
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+}
+
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.status-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* Badge Status Pesanan */
+.badge-status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.badge-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.badge-process {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.badge-ready {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badge-completed {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+/* Timeline/Langkah-Langkah Pesanan */
+.order-steps {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    position: relative;
+}
+
+.step-item {
+    text-align: center;
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.step-item.active {
+    color: var(--green-accent);
+}
+
+.step-item .icon {
+    width: 32px;
+    height: 32px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.step-item.active .icon {
+    background-color: var(--green-accent);
+}
+
+/* Detail Rincian Pesanan */
+.order-detail-list {
+    margin-top: 12px;
+    font-size: 0.9rem;
+}
+
+.order-detail-list p {
+    margin-bottom: 4px;
+    color: var(--text-muted);
+}
+
+.order-detail-list p strong {
+    color: var(--text-main);
+}

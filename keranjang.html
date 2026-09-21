@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Belanja - Pre-Order Kantin Kampus</title>
+    <link rel="stylesheet" href="Assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>Kantin Kampus</h1>
+        <nav>
+            <a href="index.html">Daftar Menu</a> | 
+            <a href="status.html">Pesanan Saya</a>
+        </nav>
+    </header>
+
+    <hr>
+    <main class="cart-section">
+        <h2>Keranjang Pre-Order</h2>
+        
+        <table class="cart-table" border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Item Makanan</th>
+                    <th>Stand</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Catatan</th>
+                    <th>Subtotal</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nasi Goreng Ayam</td>
+                    <td>Kantin Ibu Siti</td>
+                    <td>Rp 12.000</td>
+                    <td>1</td>
+                    <td>Pedas sedang, tanpa acar</td>
+                    <td>Rp 12.000</td>
+                    <button type="button" class="btn-delete">Hapus</button>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" align="right"><strong>Total Pembayaran:</strong></td>
+                    <td colspan="2"><strong>Rp 12.000</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <br><hr><br>
+
+        <h3>Pengaturan Pengambilan & Pre-Order</h3>
+        <form action="status.html" method="GET">
+            <div>
+                <label for="jam-ambil">Pilih Jam Pengambilan:</label><br>
+                <input type="time" id="jam-ambil" name="jam_ambil" min="08:00" max="16:00" required>
+                <small>*Sesuaikan dengan jam istirahat kuliah Anda</small>
+            </div>
+            <br>
+            <div>
+                <label for="metode-bayar">Metode Pembayaran:</label><br>
+                <select id="metode-bayar" name="metode_bayar" required>
+                    <option value="qris">QRIS / E-Wallet</option>
+                    <option value="tunai">Bayar Tunai di Stand saat Pengambilan</option>
+                </select>
+            </div>
+            <br>
+            <button type="submit">Konfirmasi Pre-Order Now</button>
+        </form>
+    </main>
+    <hr>
+
+    <footer>
+        <p>&copy; 2026 Pre-Order Kantin Kampus</p>
+    </footer>
+</body>
+</html>

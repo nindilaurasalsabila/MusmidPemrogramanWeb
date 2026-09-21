@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Makanan - Pre-Order Kantin Kampus</title>
+    <link rel="stylesheet" href="Assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>TapEat</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">← Kembali ke Katalog</a></li>
+                <li><a href="keranjang.html">Keranjang (1)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="detail-container">
+        <article class="detail-card">
+            <img src="https://via.placeholder.com/300" alt="Nasi Goreng Ayam">
+            
+            <div class="detail-info">
+                <h2>Nasi Goreng Ayam</h2>
+                <p><strong>Stand:</strong> Kantin Ibu Siti (Stand 02)</p>
+                <p><strong>Kategori:</strong> Makanan Berat</p>
+                <p class="price">Rp 12.000</p>
+                <p><strong>Stok Tersedia:</strong> 15 porsi</p>
+                <p style="margin-top: 8px;">Nasi goreng dengan bumbu khas, disajikan dengan telur ceplok, suwiran ayam, timun, dan kerupuk.</p>
+
+                <form action="keranjang.html" method="GET" class="detail-form">
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah Porsi:</label>
+                        <input type="number" id="jumlah" name="jumlah" value="1" min="1" max="15">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pedas">Tingkat Pedas:</label>
+                        <select id="pedas" name="pedas">
+                            <option value="tidak-pedas">Tidak Pedas</option>
+                            <option value="sedang">Sedang</option>
+                            <option value="pedas">Pedas Banget</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="catatan">Catatan Tambahan:</label>
+                        <textarea id="catatan" name="catatan" rows="3" placeholder="Contoh: Jangan pakai acar dan daun bawang"></textarea>
+                    </div>
+
+                    <button type="submit">Tambah ke Keranjang</button>
+                </form>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Pre-Order Kantin Kampus</p>
+    </footer>
+</body>
+</html>

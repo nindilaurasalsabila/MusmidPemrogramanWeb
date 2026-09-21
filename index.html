@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Order Kantin Kampus</title>
+    <link rel="stylesheet" href="Assets/style.css">
+</head>
+<body>
+
+    <!-- Header & Navigasi -->
+    <header>
+        <h1>TapEat</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="keranjang.html">Keranjang (0)</a></li>
+                <li><a href="status.html">Pesanan Saya</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <hr>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Fitur Search & Filter -->
+        <section id="search-filter">
+            <h2>Cari Makanan</h2>
+            <form>
+                <input type="text" placeholder="Cari Nasi Goreng, Ayam, Es Teh...">
+                <select name="kategori">
+                    <option value="">Semua Kategori</option>
+                    <option value="makanan-berat">Makanan Berat</option>
+                    <option value="camilan">Camilan</option>
+                    <option value="minuman">Minuman</option>
+                </select>
+                <button type="submit">Cari</button>
+            </form>
+        </section>
+
+        <br>
+
+        <!-- Daftar Makanan / Katalog -->
+        <section id="daftar-makanan">
+            <h2>Daftar Menu Makanan</h2>
+
+            <!-- Card Makanan 1 -->
+            <article class="food-card">
+                <img src="https://via.placeholder.com/150" alt="Nasi Goreng Kantin">
+                <h3>Nasi Goreng Ayam</h3>
+                <p>Kantin Ibu Siti - Stand 02</p>
+                <p>Harga: <strong>Rp 12.000</strong></p>
+                <p>Stok Tersedia: 15</p>
+                <a href="detail.html">Lihat Detail</a>
+                <button type="button">Tambah ke Keranjang</button>
+            </article>
+
+            <hr>
+
+            <!-- Card Makanan 2 -->
+            <article class="food-card">
+                <img src="https://via.placeholder.com/150" alt="Es Teh Manis">
+                <h3>Es Teh Manis</h3>
+                <p>Kantin Berkah - Stand 05</p>
+                <p>Harga: <strong>Rp 3.000</strong></p>
+                <p>Stok Tersedia: 50</p>
+                <a href="detail.html">Lihat Detail</a>
+                <button type="button">Tambah ke Keranjang</button>
+            </article>
+        </section>
+    </main>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; TapEat, Solusi Efisien Tanpa Antre.</p>
+    </footer>
+
+</body>
+</html>

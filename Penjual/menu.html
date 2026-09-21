@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Menu - Kantin Ibu Siti</title>
+    <link rel="stylesheet" href=".../Assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard Penjual - Kantin Ibu Siti</h1>
+        <nav>
+            <a href="dashboard.html">Pesanan Masuk</a> | 
+            <a href="menu.html">Kelola Menu & Stok</a> | 
+            <a href="../login.html">Keluar</a>
+        </nav>
+    </header>
+    <hr>
+    <main>
+        <h2>Tambah Menu Baru</h2>
+        <form action="#" method="POST">
+            <div>
+                <label for="nama-menu">Nama Makanan/Minuman:</label><br>
+                <input type="text" id="nama-menu" name="nama_menu" required>
+            </div>
+            <br>
+            <div>
+                <label for="kategori-menu">Kategori:</label><br>
+                <select id="kategori-menu" name="kategori_menu">
+                    <option value="makanan-berat">Makanan Berat</option>
+                    <option value="camilan">Camilan</option>
+                    <option value="minuman">Minuman</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="harga">Harga (Rp):</label><br>
+                <input type="number" id="harga" name="harga" required>
+            </div>
+            <br>
+            <div>
+                <label for="stok">Jumlah Stok Awal:</label><br>
+                <input type="number" id="stok" name="stok" required>
+            </div>
+            <br>
+            <div>
+                <label for="foto">Upload Foto Makanan:</label><br>
+                <input type="file" id="foto" name="foto">
+            </div>
+            <br>
+            <button type="submit">Simpan Menu</button>
+        </form>
+
+        <br><hr><br>
+
+        <h2>Daftar Menu Makanan Saat Ini</h2>
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Gambar</th>
+                    <th>Nama Menu</th>
+                    <th>Kategori</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="https://via.placeholder.com/50" alt="Nasi Goreng"></td>
+                    <td>Nasi Goreng Ayam</td>
+                    <td>Makanan Berat</td>
+                    <td>Rp 12.000</td>
+                    <td>15 porsi</td>
+                    <td>
+                        <button type="button">Edit</button>
+                        <button type="button">Hapus</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <hr>
+    <footer>
+        <p>&copy; 2026 Panel Penjual Kantin Kampus</p>
+    </footer>
+</body>
+</html>
