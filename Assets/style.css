@@ -353,7 +353,7 @@ footer {
     margin-bottom: 16px;
 }
 
-/* Penyesuaian Tabel Keranjang */
+/* Keranjang */
 .cart-table {
     box-shadow: none;
     border: none;
@@ -371,7 +371,7 @@ footer {
     vertical-align: middle;
 }
 
-/* Tombol Hapus di Keranjang */
+/* Hapus Keranjang */
 .btn-delete {
     background-color: #fff0f0;
     color: var(--primary-red);
@@ -416,9 +416,7 @@ footer {
     margin-top: 10px;
 }
 
-/* ==========================================
-   10. TAMPILAN KHUSUS HALAMAN DETAIL MAKANAN
-   ========================================== */
+/* 10. TAMPILAN KHUSUS HALAMAN DETAIL MAKANAN */
 .detail-container {
     background: #ffffff;
     border-radius: 16px;
