@@ -3,8 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre-Order Kantin Kampus</title>
+    <title>TapEat - Pre-Order Kantin Kampus</title>
     <link rel="stylesheet" href="src/css/style.css">
+    <style>
+        :root {
+            --primary-color: #dc2626;
+            --primary-hover: #b91c1c;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        header nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .main-container {
+            max-width: 1150px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        /* Search Section Card */
+        .search-section {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            margin-bottom: 32px;
+        }
+
+        .search-section h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-form input, .search-form select {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-form input:focus, .search-form select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .search-form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-form button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Katalog Menu */
+        .catalog-section h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .food-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .food-image img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .food-details {
+            padding: 16px;
+        }
+
+        .food-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 6px 0;
+            color: var(--text-main);
+        }
+
+        .food-card p {
+            margin: 4px 0;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .food-actions {
+            padding: 0 16px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-detail {
+            text-align: center;
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-detail:hover {
+            background-color: #e2e8f0;
+        }
+
+        .btn-cart {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 9px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cart:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Styling untuk Toast Notification Modern */
+        #toast-notification {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 14px 20px;
+            position: fixed;
+            zIndex: 1000;
+            right: 30px;
+            bottom: 30px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        #toast-notification.show {
+            visibility: visible;
+            animation: fadein 0.3s, fadeout 0.3s 2.2s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        #empty-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: #ffffff;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            grid-column: 1 / -1;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 60px;
+            border-top: 1px solid #e2e8f0;
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 <body>
 
@@ -13,95 +277,200 @@
         <h1>TapEat</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="src/html/keranjang.html">Keranjang (0)</a></li>
-                <li><a href="/src/html/status.html">Pesanan Saya</a></li>
+                <li><a href="index.html" style="color: var(--primary-color); font-weight: 600;">Beranda</a></li>
+                <li><a href="src/html/keranjang.html" id="cart-link">Keranjang (0)</a></li>
+                <li><a href="src/html/status.html">Pesanan Saya</a></li>
             </ul>
         </nav>
     </header>
 
-    <hr>
-
     <!-- Main Content -->
-    <main>
+    <main class="main-container">
         <!-- Fitur Search & Filter -->
-        <section id="search-filter">
+        <section class="search-section">
             <h2>Cari Makanan</h2>
-            <form>
-                <input type="text" placeholder="Cari Nasi Goreng, Ayam, Es Teh...">
-                <select name="kategori">
+            <div class="search-form">
+                <input type="text" id="search-input" placeholder="Cari Nasi Goreng, Ayam, Es Teh...">
+                <select id="category-select">
                     <option value="">Semua Kategori</option>
                     <option value="makanan-berat">Makanan Berat</option>
                     <option value="camilan">Camilan</option>
                     <option value="minuman">Minuman</option>
                 </select>
-                <button type="submit">Cari</button>
-            </form>
+                <button type="button" id="search-btn">Cari</button>
+            </div>
         </section>
 
-        <br>
-
         <!-- Daftar Makanan / Katalog -->
-        <section id="daftar-makanan">
+        <section class="catalog-section">
             <h3>Daftar Menu Makanan</h3>
 
-            <article class="food-card">
-                <figure class="food-image">
-            <img src="Assets/images/nasiGoreng.jpg" alt="Nasi Goreng Ayam">
-                </figure>
-                <h3>Nasi Goreng Ayam</h3>
-                <p>Kantin Ibu Siti - Stand 01</p>
-                <p>Harga: <strong>Rp 12.000</strong></p>
-                <p>Stok Tersedia: 15</p>
-                <a href="src/html/detail.html">Lihat Detail</a>
-                <button type="button">Tambah ke Keranjang</button>
-            </article>
+            <div class="menu-grid" id="menu-container">
+                <!-- Card 1: Nasi Goreng Ayam -->
+                <article class="food-card" data-name="nasi goreng ayam" data-category="makanan-berat">
+                    <figure class="food-image" style="margin: 0;">
+                        <img src="Assets/images/nasiGoreng.jpg" alt="Nasi Goreng Ayam">
+                    </figure>
+                    <div class="food-details">
+                        <h3>Nasi Goreng Ayam</h3>
+                        <p>Kantin Ibu Siti - Stand 01</p>
+                        <p>Harga: <strong>Rp 12.000</strong></p>
+                        <p>Stok Tersedia: 15</p>
+                    </div>
+                    <div class="food-actions">
+                        <a href="src/html/detailMakanan.html?menu=nasi-goreng" class="btn-detail">Lihat Detail</a>
+                        <button type="button" class="btn-cart" onclick="addToCart('nasi-goreng')">Tambah ke Keranjang</button>
+                    </div>
+                </article>
 
-            <article class="food-card">
-                <figure class="food-image">
-            <img src="Assets/images/nasiKuning.jpg" alt="Nasi Kuning">
-                </figure>
-                <h3>Nasi Kuning </h3>
-                <p>Kantin Endyul - Stand 02 </p>
-                <p>Harga: <strong>Rp 12.000</strong></p>
-                <p>Stok Tersedia: 20</p>
-                <a href="src/html/detail.html">Lihat Detail</a>
-                <button type="button">Tambah ke Keranjang</button>
-            </article>
+                <!-- Card 2: Nasi Kuning -->
+                <article class="food-card" data-name="nasi kuning" data-category="makanan-berat">
+                    <figure class="food-image" style="margin: 0;">
+                        <img src="Assets/images/nasiKuning.jpg" alt="Nasi Kuning">
+                    </figure>
+                    <div class="food-details">
+                        <h3>Nasi Kuning</h3>
+                        <p>Kantin Endyul - Stand 02</p>
+                        <p>Harga: <strong>Rp 12.000</strong></p>
+                        <p>Stok Tersedia: 20</p>
+                    </div>
+                    <div class="food-actions">
+                        <a href="src/html/detailMakanan.html?menu=nasi-kuning" class="btn-detail">Lihat Detail</a>
+                        <button type="button" class="btn-cart" onclick="addToCart('nasi-kuning')">Tambah ke Keranjang</button>
+                    </div>
+                </article>
 
-            <article class="food-card">
-                <figure class="food-image">
-            <img src="assets/images/nasiAyamKatsu.jpg" alt="Nasi Ayam katsu">
-                </figure>
-                <h3>Nasi Ayam katsu</h3>
-                <p>Kantin pojok - Stand 03</p>
-                <p>Harga: <strong>Rp 13.000</strong></p>
-                <p>Stok Tersedia: 25</p>
-                <a href="src/html/detail.html">Lihat Detail</a>
-                <button type="button">Tambah ke Keranjang</button>
-            </article>
+                <!-- Card 3: Nasi Ayam Katsu -->
+                <article class="food-card" data-name="nasi ayam katsu" data-category="makanan-berat">
+                    <figure class="food-image" style="margin: 0;">
+                        <img src="Assets/images/nasiAyamKatsu.jpg" alt="Nasi Ayam Katsu">
+                    </figure>
+                    <div class="food-details">
+                        <h3>Nasi Ayam Katsu</h3>
+                        <p>Kantin Pojok - Stand 03</p>
+                        <p>Harga: <strong>Rp 13.000</strong></p>
+                        <p>Stok Tersedia: 25</p>
+                    </div>
+                    <div class="food-actions">
+                        <a href="src/html/detailMakanan.html?menu=ayam-katsu" class="btn-detail">Lihat Detail</a>
+                        <button type="button" class="btn-cart" onclick="addToCart('ayam-katsu')">Tambah ke Keranjang</button>
+                    </div>
+                </article>
 
-            <hr>
-            <article class="food-card">
-                <figure class="food-image">
-                <img src="assets/images/EstehManis.jpg" alt="Es Teh Manis">
-                </figure>
-                <h3>Es Teh Manis</h3>
-                <p>Kantin Berkah - Stand 05</p>
-                <p>Harga: <strong>Rp 3.000</strong></p>
-                <p>Stok Tersedia: 50</p>
-                <a href="src/html/detail.html">Lihat Detail</a>
-                <button type="button">Tambah ke Keranjang</button>
-            </article>
+                <!-- Card 4: Es Teh Manis -->
+                <article class="food-card" data-name="es teh manis" data-category="minuman">
+                    <figure class="food-image" style="margin: 0;">
+                        <img src="Assets/images/EstehManis.jpg" alt="Es Teh Manis">
+                    </figure>
+                    <div class="food-details">
+                        <h3>Es Teh Manis</h3>
+                        <p>Kantin Berkah - Stand 05</p>
+                        <p>Harga: <strong>Rp 3.000</strong></p>
+                        <p>Stok Tersedia: 50</p>
+                    </div>
+                    <div class="food-actions">
+                        <a href="src/html/detailMakanan.html?menu=es-teh" class="btn-detail">Lihat Detail</a>
+                        <button type="button" class="btn-cart" onclick="addToCart('es-teh')">Tambah ke Keranjang</button>
+                    </div>
+                </article>
+
+                <!-- Pesan jika menu tidak ditemukan -->
+                <div id="empty-message">
+                    <p>🍽️ Maaf, menu tidak tersedia.</p>
+                </div>
+            </div>
         </section>
     </main>
 
-    <hr>
+    <!-- Toast Notification Element -->
+    <div id="toast-notification">✓ Menu berhasil ditambahkan ke keranjang!</div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; TapEat, Solusi Efisien Tanpa Antre.</p>
+        <p>&copy; 2026 TapEat. Solusi Efisien Tanpa Antre.</p>
     </footer>
+
+    <!-- Script JavaScript untuk Filter & Toast Notification Tanpa Alert Bawaan -->
+    <script>
+        const menuDatabase = {
+            "nasi-goreng": { title: "Nasi Goreng Ayam", stand: "Kantin Ibu Siti - Stand 01", priceNum: 12000, price: "Rp 12.000" },
+            "nasi-kuning": { title: "Nasi Kuning", stand: "Kantin Endyul - Stand 02", priceNum: 12000, price: "Rp 12.000" },
+            "ayam-katsu": { title: "Nasi Ayam Katsu", stand: "Kantin Pojok - Stand 03", priceNum: 13000, price: "Rp 13.000" },
+            "es-teh": { title: "Es Teh Manis", stand: "Kantin Berkah - Stand 05", priceNum: 3000, price: "Rp 3.000" }
+        };
+
+        // Update badge jumlah keranjang di navbar saat halaman dimuat
+        function updateCartBadge() {
+            let cart = JSON.parse(localStorage.getItem('tapest_cart')) || [];
+            let totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-link').textContent = `Keranjang (${totalItems})`;
+        }
+        updateCartBadge();
+
+        const searchInput = document.getElementById('search-input');
+        const categorySelect = document.getElementById('category-select');
+        const searchBtn = document.getElementById('search-btn');
+        const foodCards = document.querySelectorAll('.food-card');
+        const emptyMessage = document.getElementById('empty-message');
+
+        function filterMenu() {
+            const query = searchInput.value.toLowerCase().trim();
+            const selectedCategory = categorySelect.value;
+            let visibleCount = 0;
+
+            foodCards.forEach(card => {
+                const foodName = card.getAttribute('data-name');
+                const foodCategory = card.getAttribute('data-category');
+
+                const matchesSearch = foodName.includes(query);
+                const matchesCategory = selectedCategory === "" || foodCategory === selectedCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0) {
+                emptyMessage.style.display = 'block';
+            } else {
+                emptyMessage.style.display = 'none';
+            }
+        }
+
+        searchBtn.addEventListener('click', filterMenu);
+        searchInput.addEventListener('keyup', filterMenu);
+        categorySelect.addEventListener('change', filterMenu);
+
+        // Fungsi Tambah ke Keranjang menggunakan Toast Notification yang Elegan
+        function addToCart(menuKey) {
+            let cart = JSON.parse(localStorage.getItem('tapest_cart')) || [];
+            let existingItem = cart.find(item => item.key === menuKey);
+            
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({
+                    key: menuKey,
+                    title: menuDatabase[menuKey].title,
+                    stand: menuDatabase[menuKey].stand,
+                    priceNum: menuDatabase[menuKey].priceNum,
+                    price: menuDatabase[menuKey].price,
+                    qty: 1
+                });
+            }
+
+            localStorage.setItem('tapest_cart', JSON.stringify(cart));
+            updateCartBadge();
+
+            // Tampilkan Toast Notification halus di pojok kanan bawah
+            const toast = document.getElementById('toast-notification');
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
+        }
+    </script>
 
 </body>
 </html>

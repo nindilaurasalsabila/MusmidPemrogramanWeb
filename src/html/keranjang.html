@@ -3,77 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keranjang Belanja - Pre-Order Kantin Kampus</title>
-    <link rel="stylesheet" href="Assets/style.css">
+    <title>Keranjang Pre-Order - TapEat</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        :root {
+            --primary-color: #dc2626;
+            --primary-hover: #b91c1c;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        header nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-main);
+        }
+
+        .card-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            margin-bottom: 24px;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .cart-table th {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            font-weight: 600;
+            padding: 12px 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .cart-table td {
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: var(--text-main);
+        }
+
+        .btn-delete {
+            background-color: #fee2e2;
+            color: var(--primary-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-delete:hover {
+            background-color: #fecaca;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .form-group input[type="time"], .form-group select {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            background: #ffffff;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 6px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .btn-checkout {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-checkout:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Styling Modal / Pop-up QR Code */
+        #qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: var(--text-main);
+            font-size: 1.3rem;
+        }
+
+        .qr-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        .qr-box img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+        }
+
+        .btn-close-modal {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 60px;
+            border-top: 1px solid #e2e8f0;
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1>Kantin Kampus</h1>
+        <h1>TapEat</h1>
         <nav>
-            <a href="index.html">Daftar Menu</a> | 
-            <a href="status.html">Pesanan Saya</a>
+            <ul>
+                <li><a href="../../index.html">Beranda</a></li>
+                <li><a href="keranjang.html" style="color: var(--primary-color); font-weight: 600;" id="cart-nav">Keranjang (0)</a></li>
+                <li><a href="status.html">Pesanan Saya</a></li>
+            </ul>
         </nav>
     </header>
 
-    <hr>
-    <main class="cart-section">
-        <h2>Keranjang Pre-Order</h2>
+    <main class="main-container">
+        <h2 class="page-title">Keranjang Pre-Order</h2>
         
-        <table class="cart-table" border="1" cellpadding="8" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Item Makanan</th>
-                    <th>Stand</th>
-                    <th>Harga</th>
-                    <th>Jumlah</th>
-                    <th>Catatan</th>
-                    <th>Subtotal</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Nasi Goreng Ayam</td>
-                    <td>Kantin Ibu Siti</td>
-                    <td>Rp 12.000</td>
-                    <td>1</td>
-                    <td>Pedas sedang, tanpa acar</td>
-                    <td>Rp 12.000</td>
-                    <button type="button" class="btn-delete">Hapus</button>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="5" align="right"><strong>Total Pembayaran:</strong></td>
-                    <td colspan="2"><strong>Rp 12.000</strong></td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="card-box" style="overflow-x: auto;">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Item Makanan</th>
+                        <th>Stand</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Subtotal</th>
+                        <th style="text-align: center;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items-container">
+                    <!-- Dinamis oleh JS -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" align="right" style="font-weight: 700;">Total Pembayaran:</td>
+                        <td colspan="2" id="cart-total-price" style="color: var(--primary-color); font-weight: 700; font-size: 1.1rem;">Rp 0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
 
-        <br><hr><br>
+        <div class="card-box">
+            <h3 style="font-size: 1.15rem; font-weight: 600; margin-top: 0; margin-bottom: 20px;">Pengaturan Pengambilan & Pembayaran</h3>
+            
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="jam-ambil">Pilih Jam Pengambilan:</label>
+                    <input type="time" id="jam-ambil" name="jam_ambil" required>
+                    <small>*Sesuaikan dengan jam istirahat kuliah Anda</small>
+                </div>
 
-        <h3>Pengaturan Pengambilan & Pre-Order</h3>
-        <form action="status.html" method="GET">
-            <div>
-                <label for="jam-ambil">Pilih Jam Pengambilan:</label><br>
-                <input type="time" id="jam-ambil" name="jam_ambil" min="08:00" max="16:00" required>
-                <small>*Sesuaikan dengan jam istirahat kuliah Anda</small>
-            </div>
-            <br>
-            <div>
-                <label for="metode-bayar">Metode Pembayaran:</label><br>
-                <select id="metode-bayar" name="metode_bayar" required>
-                    <option value="qris">QRIS / E-Wallet</option>
-                    <option value="tunai">Bayar Tunai di Stand saat Pengambilan</option>
-                </select>
-            </div>
-            <br>
-            <button type="submit">Konfirmasi Pre-Order Now</button>
-        </form>
+                <div class="form-group">
+                    <label for="metode-bayar">Metode Pembayaran:</label>
+                    <select id="metode-bayar" name="metode_bayar" required>
+                        <option value="qris">QRIS / E-Wallet (Scan di HP)</option>
+                        <option value="tunai">Bayar & Scan di Kasir Stand</option>
+                    </select>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="btn-checkout">Konfirmasi Pre-Order Now</button>
+                </div>
+            </form>
+        </div>
     </main>
-    <hr>
+
+    <!-- Modal Pop-up QR Code -->
+    <div id="qr-modal">
+        <div class="modal-content">
+            <h3 id="modal-title">Scan QR Code Pembayaran</h3>
+            <p id="modal-desc" style="font-size: 0.9rem; color: var(--text-muted);">Gunakan aplikasi E-Wallet Anda untuk memindai kode QR di bawah ini.</p>
+            <div class="qr-box">
+                <!-- Contoh gambar QR Code statis (bisa diganti asset lokal) -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=TapEat-PreOrder-Transaction" alt="QR Code" id="qr-img">
+            </div>
+            <p style="font-weight: 600; margin-bottom: 15px;">Total: <span id="modal-total" style="color: var(--primary-color);">Rp 0</span></p>
+            <button type="button" class="btn-close-modal" onclick="finishOrder()">Selesai & Lihat Status Pesanan</button>
+        </div>
+    </div>
 
     <footer>
-        <p>&copy; 2026 Pre-Order Kantin Kampus</p>
+        <p>&copy; 2026 TapEat. Solusi Efisien Tanpa Antre.</p>
     </footer>
+
+    <script>
+        const menuDatabase = {
+            "nasi-goreng": { title: "Nasi Goreng Ayam", stand: "Kantin Ibu Siti - Stand 01", priceNum: 12000, price: "Rp 12.000" },
+            "nasi-kuning": { title: "Nasi Kuning", stand: "Kantin Endyul - Stand 02", priceNum: 12000, price: "Rp 12.000" },
+            "ayam-katsu": { title: "Nasi Ayam Katsu", stand: "Kantin Pojok - Stand 03", priceNum: 13000, price: "Rp 13.000" },
+            "es-teh": { title: "Es Teh Manis", stand: "Kantin Berkah - Stand 05", priceNum: 3000, price: "Rp 3.000" }
+        };
+
+        let cart = JSON.parse(localStorage.getItem('tapest_cart')) || [];
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const newMenuKey = urlParams.get('menu');
+        if (newMenuKey && menuDatabase[newMenuKey]) {
+            let existingItem = cart.find(item => item.key === newMenuKey);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({
+                    key: newMenuKey,
+                    title: menuDatabase[newMenuKey].title,
+                    stand: menuDatabase[newMenuKey].stand,
+                    priceNum: menuDatabase[newMenuKey].priceNum,
+                    price: menuDatabase[newMenuKey].price,
+                    qty: 1
+                });
+            }
+            localStorage.setItem('tapest_cart', JSON.stringify(cart));
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        let currentGrandTotal = 0;
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const totalContainer = document.getElementById('cart-total-price');
+            const navCart = document.getElementById('cart-nav');
+            
+            container.innerHTML = '';
+            currentGrandTotal = 0;
+            let totalItems = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = `<tr><td colspan="6" align="center" style="padding: 30px; color: var(--text-muted);">Keranjang masih kosong. Silakan pilih menu di Beranda.</td></tr>`;
+                totalContainer.textContent = 'Rp 0';
+                navCart.textContent = 'Keranjang (0)';
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                let subtotal = item.priceNum * item.qty;
+                currentGrandTotal += subtotal;
+                totalItems += item.qty;
+
+                container.innerHTML += `
+                    <tr>
+                        <td style="font-weight: 600;">${item.title}</td>
+                        <td>${item.stand}</td>
+                        <td>${item.price}</td>
+                        <td>${item.qty}</td>
+                        <td style="font-weight: 600;">Rp ${subtotal.toLocaleString('id-ID')}</td>
+                        <td style="text-align: center;">
+                            <button type="button" class="btn-delete" onclick="removeItem(${index})">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            totalContainer.textContent = `Rp ${currentGrandTotal.toLocaleString('id-ID')}`;
+            navCart.textContent = `Keranjang (${totalItems})`;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('tapest_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        // Tangani saat form checkout disubmit
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert('Keranjang Anda masih kosong!');
+                return;
+            }
+
+            const metode = document.getElementById('metode-bayar').value;
+            const modal = document.getElementById('qr-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDesc = document.getElementById('modal-desc');
+            const modalTotal = document.getElementById('modal-total');
+
+            modalTotal.textContent = `Rp ${currentGrandTotal.toLocaleString('id-ID')}`;
+
+            if (metode === 'qris') {
+                modalTitle.textContent = "Scan QRIS / E-Wallet";
+                modalDesc.textContent = "Scan kode QR ini menggunakan GoPay, OVO, DANA, atau M-Banking Anda.";
+            } else {
+                modalTitle.textContent = "QR Code Kasir Stand";
+                modalDesc.textContent = "Tunjukkan dan scan QR Code ini ke kasir stand saat Anda mengambil pesanan.";
+            }
+
+            modal.style.display = 'flex';
+        });
+
+        function finishOrder() {
+            localStorage.removeItem('tapest_cart');
+            window.location.href = 'status.html';
+        }
+
+        renderCart();
+    </script>
+
 </body>
 </html>

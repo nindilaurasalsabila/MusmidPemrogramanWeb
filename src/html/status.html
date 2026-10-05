@@ -3,64 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Status Pesanan - Pre-Order Kantin Kampus</title>
-    <!-- LINK CSS -->
-    <link rel="stylesheet" href="Assets/style.css">
+    <title>Status Pesanan - TapEat</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        :root {
+            --primary-color: #dc2626;
+            --primary-hover: #b91c1c;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        header nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-main);
+        }
+
+        /* Status Card */
+        .status-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            margin-bottom: 24px;
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 16px;
+        }
+
+        .order-id {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 4px 0;
+        }
+
+        .est-time {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .badge-process {
+            background-color: #fef3c7;
+            color: #d97706;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        /* Timeline Progress Bar Horizontal */
+        .order-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .step-item {
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+            padding: 12px 8px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .step-item.active {
+            background-color: #fee2e2;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .step-item .icon {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Detail Pesanan List */
+        .order-detail-list {
+            margin-top: 20px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .order-detail-list p {
+            margin: 6px 0;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 60px;
+            border-top: 1px solid #e2e8f0;
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Header & Navigasi -->
     <header>
-        <h1>Kantin Kampus</h1>
+        <h1>TapEat</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Daftar Menu</a></li>
-                <li><a href="keranjang.html">Keranjang</a></li>
+                <li><a href="../../index.html">Beranda</a></li>
+                <li><a href="keranjang.html">Keranjang (0)</a></li>
+                <li><a href="status.html" style="color: var(--primary-color); font-weight: 600;">Pesanan Saya</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="status-container">
-        <h2>Pelacakan & Riwayat Pesanan</h2>
+    <!-- Main Content -->
+    <main class="main-container">
+        <h2 class="page-title">Pelacakan & Riwayat Pesanan</h2>
 
         <!-- KARTU PESANAN AKTIF -->
         <div class="status-card">
             <div class="status-header">
                 <div>
-                    <h3>#ORD-20260921-01</h3>
-                    <small style="color: var(--text-muted);">Estimasi Ambil: 12:00 WIB</small>
+                    <h3 class="order-id">#ORD-20260921-01</h3>
+                    <p class="est-time">Estimasi Ambil: <strong>12:00 WIB</strong></p>
                 </div>
-                <span class="badge-status badge-process">Sedang Disiapkan</span>
+                <span class="badge-process">Sedang Disiapkan</span>
             </div>
 
-            <!-- TIMELINE STATUS -->
+            <!-- TIMELINE STATUS (Berjajar rapi ke samping) -->
             <div class="order-steps">
                 <div class="step-item active">
-                    <div class="icon">✓</div>
+                    <span class="icon">✓</span>
                     <span>Diterima</span>
                 </div>
                 <div class="step-item active">
-                    <div class="icon">2</div>
+                    <span class="icon">2</span>
                     <span>Dimasak</span>
                 </div>
                 <div class="step-item">
-                    <div class="icon">3</div>
+                    <span class="icon">3</span>
                     <span>Siap Diambil</span>
                 </div>
                 <div class="step-item">
-                    <div class="icon">4</div>
+                    <span class="icon">4</span>
                     <span>Selesai</span>
                 </div>
             </div>
 
             <div class="order-detail-list">
                 <p><strong>Stand:</strong> Kantin Ibu Siti</p>
-                <p><strong>Pesanan:</strong> 1x Nasi Goreng Ayam (Pedas sedang)</p>
-                <p><strong>Total Pembayaran:</strong> <strong style="color: var(--primary-red);">Rp 12.000</strong> (QRIS)</p>
+                <p><strong>Pesanan:</strong> 1x Nasi Goreng Ayam <span style="color: var(--text-muted); font-size: 0.85rem;">(Pedas sedang, tanpa acar)</span></p>
+                <p><strong>Total Pembayaran:</strong> <strong style="color: var(--primary-color);">Rp 12.000</strong> <span style="font-size: 0.85rem; color: var(--text-muted);">(QRIS / E-Wallet)</span></p>
             </div>
         </div>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Pre-Order Kantin Kampus</p>
+        <p>&copy; 2026 TapEat. Solusi Efisien Tanpa Antre.</p>
     </footer>
+
 </body>
 </html>

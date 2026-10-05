@@ -3,60 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Makanan - Pre-Order Kantin Kampus</title>
-    <link rel="stylesheet" href="Assets/style.css">
+    <title>Detail Makanan - TapEat</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        :root {
+            --primary-color: #dc2626;
+            --primary-hover: #b91c1c;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        header nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        .detail-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            overflow: hidden;
+            gap: 32px;
+            padding: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .detail-card {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .detail-info h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 8px 0;
+        }
+
+        .stand-badge {
+            display: inline-block;
+            background-color: #fee2e2;
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .stock {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        .btn-add-cart {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-add-cart:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Toast Notification Modern */
+        #toast-notification {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 14px 20px;
+            position: fixed;
+            z-index: 1000;
+            right: 30px;
+            bottom: 30px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        #toast-notification.show {
+            visibility: visible;
+            animation: fadein 0.3s, fadeout 0.3s 2.2s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 60px;
+            border-top: 1px solid #e2e8f0;
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 <body>
+
     <header>
         <h1>TapEat</h1>
         <nav>
             <ul>
-                <li><a href="index.html">← Kembali ke Katalog</a></li>
-                <li><a href="keranjang.html">Keranjang (1)</a></li>
+                <li><a href="../../index.html">Beranda</a></li>
+                <li><a href="keranjang.html" id="cart-link">Keranjang (0)</a></li>
+                <li><a href="status.html">Pesanan Saya</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="detail-container">
-        <article class="detail-card">
-            <img src="https://via.placeholder.com/300" alt="Nasi Goreng Ayam">
-            
-            <div class="detail-info">
-                <h2>Nasi Goreng Ayam</h2>
-                <p><strong>Stand:</strong> Kantin Ibu Siti (Stand 02)</p>
-                <p><strong>Kategori:</strong> Makanan Berat</p>
-                <p class="price">Rp 12.000</p>
-                <p><strong>Stok Tersedia:</strong> 15 porsi</p>
-                <p style="margin-top: 8px;">Nasi goreng dengan bumbu khas, disajikan dengan telur ceplok, suwiran ayam, timun, dan kerupuk.</p>
+    <main class="main-container">
+        <a href="../../index.html" class="back-link">← Kembali ke Katalog</a>
 
-                <form action="keranjang.html" method="GET" class="detail-form">
+        <div class="detail-card">
+            <div class="detail-image">
+                <img id="food-img" src="../../Assets/images/nasiGoreng.jpg" alt="Foto Makanan">
+            </div>
+
+            <div class="detail-info">
+                <h2 id="food-title">Nasi Goreng Ayam</h2>
+                <span class="id-stand stand-badge" id="food-stand">Kantin Ibu Siti - Stand 01</span>
+                <div class="price" id="food-price">Rp 12.000</div>
+                <div class="stock" id="food-stock">Stok Tersedia: 15 porsi</div>
+                <p class="description" id="food-desc">Nasi goreng dengan bumbu khas, disajikan dengan telur ceplok, suwiran ayam, timun, dan kerupuk.</p>
+
+                <form id="order-form">
                     <div class="form-group">
                         <label for="jumlah">Jumlah Porsi:</label>
-                        <input type="number" id="jumlah" name="jumlah" value="1" min="1" max="15">
+                        <input type="number" id="jumlah" value="1" min="1" max="50" required>
                     </div>
 
                     <div class="form-group">
                         <label for="pedas">Tingkat Pedas:</label>
-                        <select id="pedas" name="pedas">
+                        <select id="pedas">
                             <option value="tidak-pedas">Tidak Pedas</option>
-                            <option value="sedang">Sedang</option>
+                            <option value="sedang" selected>Pedas Sedang</option>
                             <option value="pedas">Pedas Banget</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="catatan">Catatan Tambahan:</label>
-                        <textarea id="catatan" name="catatan" rows="3" placeholder="Contoh: Jangan pakai acar dan daun bawang"></textarea>
+                        <textarea id="catatan" placeholder="Contoh: Jangan pakai acar dan daun bawang"></textarea>
                     </div>
 
-                    <button type="submit">Tambah ke Keranjang</button>
+                    <button type="submit" class="btn-add-cart">Tambah ke Keranjang</button>
                 </form>
             </div>
-        </article>
+        </div>
     </main>
 
+    <!-- Toast Notification Element -->
+    <div id="toast-notification">✓ Menu berhasil ditambahkan ke keranjang!</div>
+
     <footer>
-        <p>&copy; 2026 Pre-Order Kantin Kampus</p>
+        <p>&copy; 2026 TapEat. Solusi Efisien Tanpa Antre.</p>
     </footer>
+
+    <script>
+        const menuDatabase = {
+            "nasi-goreng": {
+                title: "Nasi Goreng Ayam",
+                stand: "Kantin Ibu Siti - Stand 01",
+                priceNum: 12000,
+                price: "Rp 12.000",
+                stock: "Stok Tersedia: 15 porsi",
+                desc: "Nasi goreng dengan bumbu khas, disajikan dengan telur ceplok, suwiran ayam, timun, dan kerupuk.",
+                img: "../../Assets/images/nasiGoreng.jpg"
+            },
+            "nasi-kuning": {
+                title: "Nasi Kuning",
+                stand: "Kantin Endyul - Stand 02",
+                priceNum: 12000,
+                price: "Rp 12.000",
+                stock: "Stok Tersedia: 20 porsi",
+                desc: "Nasi kuning gurih dengan lauk suwiran ayam, kering tempe, telur balado, dan sambal khas.",
+                img: "../../Assets/images/nasiKuning.jpg"
+            },
+            "ayam-katsu": {
+                title: "Nasi Ayam Katsu",
+                stand: "Kantin Pojok - Stand 03",
+                priceNum: 13000,
+                price: "Rp 13.000",
+                stock: "Stok Tersedia: 25 porsi",
+                desc: "Daging ayam fillet dilapisi tepung roti renyah, digoreng keemasan, disajikan dengan saus spesial.",
+                img: "../../Assets/images/nasiAyamKatsu.jpg"
+            },
+            "es-teh": {
+                title: "Es Teh Manis",
+                stand: "Kantin Berkah - Stand 05",
+                priceNum: 3000,
+                price: "Rp 3.000",
+                stock: "Stok Tersedia: 50 porsi",
+                desc: "Teh pilihan segar dengan gula asli dan es batu yang menyegarkan dahaga.",
+                img: "../../Assets/images/EstehManis.jpg"
+            }
+        };
+
+        function updateCartBadge() {
+            let cart = JSON.parse(localStorage.getItem('tapest_cart')) || [];
+            let totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-link').textContent = `Keranjang (${totalItems})`;
+        }
+        updateCartBadge();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const menuKey = urlParams.get('menu') || 'nasi-goreng';
+
+        if (menuDatabase[menuKey]) {
+            const data = menuDatabase[menuKey];
+            document.getElementById('food-title').textContent = data.title;
+            document.getElementById('food-stand').textContent = data.stand;
+            document.getElementById('food-price').textContent = data.price;
+            document.getElementById('food-stock').textContent = data.stock;
+            document.getElementById('food-desc').textContent = data.desc;
+            document.getElementById('food-img').src = data.img;
+        }
+
+        // Simpan ke localStorage dengan Toast Notification tanpa alert bawaan
+        document.getElementById('order-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const qty = parseInt(document.getElementById('jumlah').value) || 1;
+            
+            let cart = JSON.parse(localStorage.getItem('tapest_cart')) || [];
+            let existingItem = cart.find(item => item.key === menuKey);
+            
+            if (existingItem) {
+                existingItem.qty += qty;
+            } else {
+                cart.push({
+                    key: menuKey,
+                    title: menuDatabase[menuKey].title,
+                    stand: menuDatabase[menuKey].stand,
+                    priceNum: menuDatabase[menuKey].priceNum,
+                    price: menuDatabase[menuKey].price,
+                    qty: qty
+                });
+            }
+
+            localStorage.setItem('tapest_cart', JSON.stringify(cart));
+            updateCartBadge();
+
+            // Tampilkan Toast halus
+            const toast = document.getElementById('toast-notification');
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
+        });
+    </script>
+
 </body>
 </html>
