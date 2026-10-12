@@ -3,87 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Menu - Kantin Ibu Siti</title>
-    <link rel="stylesheet" href="../Assets/style.css">
+    <title>Kelola Menu Penjual - TapEat</title>
+    <link rel="stylesheet" href="../src/css/style.css">
+    <style>
+        :root { --primary-color: #dc2626; --primary-hover: #b91c1c; --bg-body: #f8fafc; --text-main: #1e293b; --text-muted: #64748b; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 0; }
+        header { background-color: #ffffff; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        header h1 { color: var(--primary-color); font-size: 1.5rem; font-weight: 700; margin: 0; }
+        header nav ul { list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; align-items: center; }
+        header nav ul li a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; }
+        .main-container { max-width: 700px; margin: 32px auto; padding: 0 20px; }
+        .card-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; }
+        .form-group input, .form-group select { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; box-sizing: border-box; }
+        .btn-submit { background-color: var(--primary-color); color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; }
+        
+        #toast-notification { visibility: hidden; min-width: 250px; background-color: #1e293b; color: #fff; text-align: center; border-radius: 8px; padding: 14px 20px; position: fixed; z-index: 1000; right: 30px; bottom: 30px; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        #toast-notification.show { visibility: visible; animation: fadein 0.3s, fadeout 0.3s 2.2s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        footer { text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.85rem; margin-top: 60px; border-top: 1px solid #e2e8f0; background: #ffffff; }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Dashboard Penjual - Kantin Ibu Siti</h1>
+        <h1>TapEat - Kelola Menu Penjual</h1>
         <nav>
-            <a href="dashboard.html">Pesanan Masuk</a> | 
-            <a href="menu.html">Kelola Menu & Stok</a> | 
-            <a href="../login.html">Keluar</a>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="menu.html" style="color: var(--primary-color); font-weight: 600;">Kelola Menu</a></li>
+                <li><a href="../src/html/login.html">Keluar</a></li>
+            </ul>
         </nav>
     </header>
-    <hr>
-    <main>
-        <h2>Tambah Menu Baru</h2>
-        <form action="#" method="POST">
-            <div>
-                <label for="nama-menu">Nama Makanan/Minuman:</label><br>
-                <input type="text" id="nama-menu" name="nama_menu" required>
-            </div>
-            <br>
-            <div>
-                <label for="kategori-menu">Kategori:</label><br>
-                <select id="kategori-menu" name="kategori_menu">
-                    <option value="makanan-berat">Makanan Berat</option>
-                    <option value="camilan">Camilan</option>
-                    <option value="minuman">Minuman</option>
-                </select>
-            </div>
-            <br>
-            <div>
-                <label for="harga">Harga (Rp):</label><br>
-                <input type="number" id="harga" name="harga" required>
-            </div>
-            <br>
-            <div>
-                <label for="stok">Jumlah Stok Awal:</label><br>
-                <input type="number" id="stok" name="stok" required>
-            </div>
-            <br>
-            <div>
-                <label for="foto">Upload Foto Makanan:</label><br>
-                <input type="file" id="foto" name="foto">
-            </div>
-            <br>
-            <button type="submit">Simpan Menu</button>
-        </form>
 
-        <br><hr><br>
+    <main class="main-container">
+        <h2 style="margin-bottom: 8px;">Pendaftaran / Permintaan Tambah Dagangan</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">*Setiap penambahan atau perubahan menu baru akan diverifikasi oleh Admin terlebih dahulu.</p>
 
-        <h2>Daftar Menu Makanan Saat Ini</h2>
-        <table border="1" cellpadding="8" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Gambar</th>
-                    <th>Nama Menu</th>
-                    <th>Kategori</th>
-                    <th>Harga</th>
-                    <th>Stok</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="https://via.placeholder.com/50" alt="Nasi Goreng"></td>
-                    <img src="../assets/images/nasi-goreng.jpg" alt="Nasi Goreng Ayam">
-                    <td>Nasi Goreng Ayam</td>
-                    <td>Makanan Berat</td>
-                    <td>Rp 12.000</td>
-                    <td>15 porsi</td>
-                    <td>
-                        <button type="button">Edit</button>
-                        <button type="button">Hapus</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="card-box">
+            <form onsubmit="event.preventDefault(); showToast('✓ Permintaan terkirim ke Admin untuk diverifikasi!');">
+                <div class="form-group">
+                    <label>Nama Makanan / Minuman:</label>
+                    <input type="text" placeholder="Contoh: Es Jeruk Segar" required>
+                </div>
+                <div class="form-group">
+                    <label>Kategori:</label>
+                    <select required>
+                        <option value="makanan-berat">Makanan Berat</option>
+                        <option value="camilan">Camilan</option>
+                        <option value="minuman">Minuman</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Harga (Rp):</label>
+                    <input type="number" placeholder="5000" required>
+                </div>
+                <div class="form-group">
+                    <label>Stok Awal:</label>
+                    <input type="number" placeholder="30" required>
+                </div>
+                <button type="submit" class="btn-submit">Kirim Permintaan Verifikasi</button>
+            </form>
+        </div>
     </main>
-    <hr>
-    <footer>
-        <p>&copy; 2026 Panel Penjual Kantin Kampus</p>
-    </footer>
+
+    <div id="toast-notification">Notifikasi</div>
+    <footer><p>&copy; 2026 TapEat. Solusi Efisien Tanpa Antre.</p></footer>
+
+    <script>
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            toast.textContent = message;
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2200);
+        }
+    </script>
 </body>
 </html>

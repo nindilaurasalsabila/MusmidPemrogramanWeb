@@ -3,45 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Pre-Order Kantin Kampus</title>
+    <title>Login & Register - TapEat</title>
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        :root { --primary-color: #dc2626; --primary-hover: #b91c1c; --bg-body: #f8fafc; --text-main: #1e293b; --text-muted: #64748b; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        header { background-color: #ffffff; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        header h1 { color: var(--primary-color); font-size: 1.5rem; font-weight: 700; margin: 0; }
+        header nav ul { list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; align-items: center; }
+        header nav ul li a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; }
+        .auth-container { max-width: 450px; width: 90%; margin: 40px auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); padding: 32px; box-sizing: border-box; }
+        .auth-tabs { display: flex; margin-bottom: 24px; border-bottom: 2px solid #e2e8f0; }
+        .tab-btn { flex: 1; background: none; border: none; padding: 12px; font-size: 1rem; font-weight: 600; color: var(--text-muted); cursor: pointer; text-align: center; }
+        .tab-btn.active { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); margin-bottom: -2px; }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; }
+        .form-group input, .form-group select { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; box-sizing: border-box; }
+        .btn-submit { background-color: var(--primary-color); color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 10px; }
+        
+        #toast-notification { visibility: hidden; min-width: 250px; background-color: #1e293b; color: #fff; text-align: center; border-radius: 8px; padding: 14px 20px; position: fixed; z-index: 1000; right: 30px; bottom: 30px; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        #toast-notification.show { visibility: visible; animation: fadein 0.3s, fadeout 0.3s 2.2s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        footer { text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.85rem; margin-top: auto; border-top: 1px solid #e2e8f0; background: #ffffff; }
+    </style>
 </head>
 <body>
     <header>
         <h1>TapEat</h1>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Beranda</a></li>
+                <li><a href="login.html" style="color: var(--primary-color); font-weight: 600;">Masuk / Daftar</a></li>
+            </ul>
+        </nav>
     </header>
-    <hr>
-    <main class="login-container">
-        <section>
-            <h2>Masuk ke Akun Anda</h2>
-            <form action="../../index.html" method="GET">
-                <div>
-                    <label for="email">Email Kampus / Username:</label><br>
-                    <input type="email" id="email" name="email" placeholder="mahasiswa@student.ac.id" required>
-                </div>
-                <br>
-                <div>
-                    <label for="password">Kata Sandi:</label><br>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <br>
-                <div>
-                    <label for="role">Masuk Sebagai:</label><br>
-                    <select id="role" name="role">
-                        <option value="mahasiswa">Mahasiswa / Pembeli</option>
-                        <option value="penjual">Penjual / Stand Kantin</option>
-                    </select>
-                </div>
-                <br>
-                <button type="submit">Masuk</button>
-            </form>
-            <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
-        </section>
+
+    <main class="auth-container">
+        <div class="auth-tabs">
+            <button class="tab-btn active" onclick="switchTab('login')">Masuk (Login)</button>
+            <button class="tab-btn" onclick="switchTab('register')">Daftar Akun</button>
+        </div>
+
+        <!-- FORM LOGIN DENGAN PILIHAN ROLE -->
+        <form id="login-form" class="auth-form active" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>Pilih Masuk Sebagai:</label>
+                <select id="login-role" required>
+                    <option value="buyer">Pembeli (Mahasiswa)</option>
+                    <option value="seller">Penjual (Stand Kantin)</option>
+                    <option value="admin">Administrator</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Email Kampus / Akun:</label>
+                <input type="email" placeholder="nama@student.umm.ac.id" required>
+            </div>
+            <div class="form-group">
+                <label>Kata Sandi:</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-submit">Masuk ke TapEat</button>
+        </form>
+
+        <!-- FORM REGISTER -->
+        <form id="register-form" class="auth-form" onsubmit="event.preventDefault(); showToast('✓ Registrasi Berhasil! Silakan Masuk.'); setTimeout(() => switchTab('login'), 1500);">
+            <div class="form-group">
+                <label>Nama Lengkap:</label>
+                <input type="text" placeholder="Nindi Laura" required>
+            </div>
+            <div class="form-group">
+                <label>Email Kampus:</label>
+                <input type="email" placeholder="nama@student.umm.ac.id" required>
+            </div>
+            <div class="form-group">
+                <label>Kata Sandi Baru:</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-submit">Daftar Sebagai Pembeli</button>
+        </form>
     </main>
-    <hr>
-    <footer>
-        <p>&copy; 2026 Pre-Order Kantin Kampus</p>
-    </footer>
-    <script src="../js/account.js"></script>
+
+    <div id="toast-notification">Notifikasi</div>
+    <footer><p>&copy; 2026 TapEat. Solusi Efisien Tanpa Antre.</p></footer>
+
+    <script>
+        function switchTab(tabName) {
+            document.getElementById('login-form').classList.toggle('active', tabName === 'login');
+            document.getElementById('register-form').classList.toggle('active', tabName === 'register');
+            document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', (tabName === 'login' && idx === 0) || (tabName === 'register' && idx === 1));
+            });
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const role = document.getElementById('login-role').value;
+            showToast('✓ Login Berhasil!');
+            
+            setTimeout(() => {
+                if (role === 'seller') {
+                    window.location.href = '../../Penjual/dashboard.html';
+                } else if (role === 'admin') {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = '../../index.html';
+                }
+            }, 1200);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            toast.textContent = message;
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2200);
+        }
+    </script>
 </body>
 </html>

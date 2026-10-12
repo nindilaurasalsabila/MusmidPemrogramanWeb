@@ -1,71 +1,262 @@
 <!DOCTYPE html>
 <html lang="id">
-<!DOCTYPE html>
-<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Penjual - TapEat</title>
+    <title>Enterprise Seller Dashboard - TapEat</title>
+    <style>
+        :root { 
+            --primary: #dc2626; 
+            --primary-hover: #b91c1c; 
+            --bg-body: #f1f5f9; 
+            --surface: #ffffff; 
+            --text-main: #0f172a; 
+            --text-muted: #64748b; 
+            --border: #e2e8f0;
+            --success: #10b981;
+        }
 
-    <!-- Panggil CSS (titik dua saja di awal) -->
-    <link rel="stylesheet" href="../assets/style.css">
-    
-    <!-- Font Awesome untuk Ikon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        body { 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            min-height: 100vh; 
+        }
+        
+        /* Sidebar Professional */
+        aside { 
+            width: 280px; 
+            background: var(--surface); 
+            border-right: 1px solid var(--border); 
+            display: flex; 
+            flex-direction: column; 
+            padding: 28px; 
+            position: fixed; 
+            height: 100%; 
+            box-sizing: border-box; 
+            z-index: 50;
+        }
+        .brand-box { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .brand-logo { background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+        .brand-title h2 { color: var(--text-main); font-size: 1.2rem; font-weight: 700; margin: 0; }
+        .brand-title span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .stand-badge-box { background: #fef2f2; border: 1px solid #fecaca; padding: 10px 14px; border-radius: 8px; margin-bottom: 30px; }
+        .stand-badge-box span { display: block; font-size: 0.75rem; color: var(--primary); font-weight: 700; text-transform: uppercase; }
+        .stand-badge-box strong { font-size: 0.9rem; color: var(--text-main); }
+
+        aside nav a { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            padding: 12px 16px; 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.95rem;
+            border-radius: 10px; 
+            margin-bottom: 6px; 
+            transition: all 0.2s ease; 
+        }
+        aside nav a.active, aside nav a:hover { background-color: #fef2f2; color: var(--primary); }
+        aside .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); }
+
+        /* Main Workspace */
+        .main-content { margin-left: 280px; flex: 1; padding: 36px 48px; box-sizing: border-box; }
+        
+        /* Top Header */
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; background: var(--surface); padding: 18px 28px; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .top-header h1 { font-size: 1.4rem; font-weight: 700; margin: 0; color: var(--text-main); }
+        .top-header p { color: var(--text-muted); margin: 2px 0 0 0; font-size: 0.88rem; }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 32px; }
+        .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; box-shadow: 0 2px 4px rgba(0,0,0,0.01); position: relative; overflow: hidden; }
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+        .stat-card.success::before { background: var(--success); }
+        
+        .stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .stat-header h4 { margin: 0; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; background: #dcfce7; color: #166534; }
+        .stat-card p { margin: 0; font-size: 1.7rem; font-weight: 800; color: var(--text-main); }
+        .stat-footer { margin-top: 8px; font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Card Box & Form Grid */
+        .card-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px; box-shadow: 0 2px 6px rgba(0,0,0,0.01); margin-bottom: 28px; }
+        .card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card-box h3 { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--text-main); }
+        
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-weight: 600; font-size: 0.85rem; margin-bottom: 8px; color: var(--text-main); }
+        .form-group input, .form-group select { padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.92rem; outline: none; background: #f8fafc; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--primary); background: #ffffff; }
+
+        .btn-submit { background-color: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: filter 0.2s; }
+        .btn-submit:hover { filter: brightness(0.9); }
+
+        /* Tables */
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; }
+        .data-table th { background-color: #f8fafc; padding: 14px 18px; border-bottom: 2px solid var(--border); font-weight: 600; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .data-table td { padding: 16px 18px; border-bottom: 1px solid var(--border); color: var(--text-main); vertical-align: middle; }
+        .data-table tr:hover { background-color: #f8fafc; }
+
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; background: #fef3c7; color: #92400e; }
+        
+        .btn-action { padding: 6px 14px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; border: none; transition: filter 0.2s; }
+        .btn-action:hover { filter: brightness(0.9); }
+        .btn-done { background-color: var(--success); color: white; margin-right: 6px; }
+        .btn-reject { background-color: var(--primary); color: white; }
+
+        /* Toast Notification */
+        #toast-notification { visibility: hidden; min-width: 280px; background-color: #0f172a; color: #fff; text-align: center; border-radius: 10px; padding: 14px 22px; position: fixed; z-index: 1000; right: 30px; bottom: 30px; font-size: 0.92rem; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border-left: 4px solid var(--success); }
+        #toast-notification.show { visibility: visible; animation: fadein 0.3s, fadeout 0.3s 2.2s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
 </head>
 <body>
 
-<body>
-    <header>
-        <h1>Dashboard Penjual - Kantin Ibu Siti</h1>
-        <nav>
-            <a href="dashboard.html">Pesanan Masuk</a> | 
-            <a href="menu.html">Kelola Menu & Stok</a> | 
-            <a href="../login.html">Keluar</a>
-        </nav>
-    </header>
-    <hr>
-    <main>
-        <h2>Daftar Pesanan Pre-Order Masuk</h2>
+    <!-- Sidebar Penjual Profesional -->
+    <aside>
+        <div class="brand-box">
+            <div class="brand-logo">TS</div>
+            <div class="brand-title">
+                <h2>TapEat Seller</h2>
+                <span>Merchant Portal</span>
+            </div>
+        </div>
         
-        <table border="1" cellpadding="8" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>ID Pesanan</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>Detail Pesanan</th>
-                    <th>Jam Ambil</th>
-                    <th>Status Sekarang</th>
-                    <th>Ubah Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>#ORD-20260921-01</td>
-                    <td>Budi Santoso</td>
-                    <td>1x Nasi Goreng Ayam (Pedas sedang, tanpa acar)</td>
-                    <td>12:15 WIB</td>
-                    <td><strong>Sedang Dimasak</strong></td>
-                    <td>
-                        <form action="#" method="POST">
-                            <select name="status">
-                                <option value="menunggu">Menunggu Konfirmasi</option>
-                                <option value="dimasak" selected>Sedang Dimasak</option>
-                                <option value="siap">Siap Diambil</option>
-                                <option value="selesai">Selesai</option>
-                            </select>
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="stand-badge-box">
+            <span>Stand Aktif</span>
+            <strong>Kantin Ibu Siti (Stand 01)</strong>
+        </div>
+
+        <nav>
+            <a href="dashboard.html" class="active">📊 Dashboard & Pesanan</a>
+            <a href="menu.html">🍔 Kelola Menu Dagangan</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../src/html/login.html" style="color: var(--primary);">🚪 Keluar Akun</a>
+        </div>
+    </aside>
+
+    <!-- Workspace Utama Penjual -->
+    <main class="main-content">
+        
+        <!-- Top Header -->
+        <div class="top-header">
+            <div>
+                <h1>Dashboard Operasional Penjual</h1>
+                <p>Kelola menu harian dan proses pesanan pre-order mahasiswa secara real-time.</p>
+            </div>
+        </div>
+
+        <!-- Statistik Kartu Korporat -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h4>Total Porsi Terjual</h4>
+                    <span class="stat-badge">Hari Ini</span>
+                </div>
+                <p>45 Porsi</p>
+                <div class="stat-footer">Target harian terpenuhi 90%</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-header">
+                    <h4>Hasil Uang di Server (Saldo)</h4>
+                    <span class="stat-badge">Ready Withdraw</span>
+                </div>
+                <p style="color: var(--success);">Rp 540.000</p>
+                <div class="stat-footer">Masuk otomatis via sistem gateway</div>
+            </div>
+        </div>
+
+        <!-- Form Tambah Menu Proporsional & Rapi -->
+        <div class="card-box">
+            <div class="card-header-flex">
+                <h3>Pendaftaran & Pengajuan Tambah Dagangan Baru</h3>
+                <span style="font-size: 0.82rem; color: var(--text-muted);">Verifikasi oleh Admin</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 0; margin-bottom: 24px;">
+                Setiap penambahan menu baru wajib melalui tinjauan administrator sebelum dipublikasikan ke katalog pembeli.
+            </p>
+            <form onsubmit="event.preventDefault(); showToast('✓ Menu berhasil diajukan untuk diverifikasi Admin!');">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nama Makanan / Minuman</label>
+                        <input type="text" placeholder="Contoh: Ayam Geprek Sambal Matah" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori Menu</label>
+                        <select required>
+                            <option value="makanan-berat">Makanan Berat</option>
+                            <option value="camilan">Camilan</option>
+                            <option value="minuman">Minuman</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Harga Satuan (Rp)</label>
+                        <input type="number" placeholder="15000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Stok Harian (Porsi)</label>
+                        <input type="number" placeholder="25" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Kirim Pengajuan ke Admin</button>
+            </form>
+        </div>
+
+        <!-- Daftar Pesanan Pembeli -->
+        <div class="card-box">
+            <div class="card-header-flex">
+                <h3>Daftar Pesanan Masuk (Pembeli)</h3>
+                <span style="font-size: 0.82rem; color: var(--text-muted);">Live Order Feed</span>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID Order</th>
+                            <th>Nama Pembeli</th>
+                            <th>Menu Dipesan & Catatan</th>
+                            <th>Jam Pengambilan</th>
+                            <th>Status Pesanan</th>
+                            <th>Aksi Penjual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 600;">#ORD-102</td>
+                            <td>Nindi Laura Salsabila</td>
+                            <td>1x Nasi Goreng Ayam (Pedas Sedang)</td>
+                            <td>12:15 WIB</td>
+                            <td><span class="status-badge">Menunggu Diambil</span></td>
+                            <td>
+                                <button class="btn-action btn-done" onclick="showToast('✓ Pesanan berhasil diselesaikan!')">Selesai</button>
+                                <button class="btn-action btn-reject" onclick="showToast('Pesanan berhasil ditolak.')">Tolak</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
-    <hr>
-    <footer>
-        <p>&copy; 2026 Panel Penjual Kantin Kampus</p>
-    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast-notification">Notifikasi Berhasil</div>
+
+    <script>
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            toast.textContent = message;
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2200);
+        }
+    </script>
 </body>
 </html>

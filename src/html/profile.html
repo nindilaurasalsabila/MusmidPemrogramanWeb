@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil & Pengaturan Akun - TapEat</title>
+    <style>
+        :root {
+            --primary: #dc2626;
+            --primary-hover: #b91c1c;
+            --bg-body: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 14px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navbar Korporat Modern */
+        header {
+            background-color: var(--surface);
+            padding: 16px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            background: var(--primary);
+            color: white;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .brand-name h1 {
+            color: var(--text-main);
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-name span {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: color 0.2s;
+        }
+
+        header nav ul li a:hover, header nav ul li a.active {
+            color: var(--primary);
+        }
+
+        .btn-auth-nav {
+            background: #fef2f2;
+            color: var(--primary) !important;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+        }
+
+        /* Main Workspace */
+        .main-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+            margin-bottom: 24px;
+        }
+
+        .card-box h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.88rem;
+            margin-bottom: 8px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.92rem;
+            outline: none;
+            background: #f8fafc;
+            box-sizing: border-box;
+        }
+
+        .btn-save {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+
+        .btn-save:hover {
+            filter: brightness(0.9);
+        }
+
+        .stand-proposal-section {
+            background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+            border: 1px solid #fecaca;
+        }
+
+        .btn-proposal {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 11px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: filter 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-proposal:hover {
+            filter: brightness(0.9);
+        }
+
+        /* Toast Notification */
+        #toast-notification {
+            visibility: hidden; min-width: 280px; background-color: #0f172a; color: #fff; text-align: center; border-radius: 10px; padding: 14px 22px; position: fixed; z-index: 1000; right: 30px; bottom: 30px; font-size: 0.92rem; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border-left: 4px solid #10b981;
+        }
+        #toast-notification.show { visibility: visible; animation: fadein 0.3s, fadeout 0.3s 2.2s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        footer {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-top: 60px;
+            border-top: 1px solid var(--border);
+            background-color: var(--surface);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Korporat Modern -->
+    <header>
+        <div class="brand-container">
+            <div class="brand-logo">TE</div>
+            <div class="brand-name">
+                <h1>TapEat</h1>
+                <span>Smart Campus Canteen</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Beranda</a></li>
+                <li><a href="keranjang.html">Keranjang</a></li>
+                <li><a href="status.html">Pesanan Saya</a></li>
+                <li><a href="profile.html" class="active">Profil Saya</a></li>
+                <li><a href="login.html" class="btn-auth-nav">Masuk / Portal</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <h2 class="page-title">Profil & Pengaturan Akun</h2>
+
+        <!-- Kartu Edit Profil -->
+        <div class="card-box">
+            <h3>Informasi Akun Pembeli</h3>
+            <form onsubmit="event.preventDefault(); showToast('✓ Profil berhasil diperbarui!');">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap:</label>
+                    <input type="text" id="nama" value="Nindi Laura Salsabila" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Kampus:</label>
+                    <input type="email" id="email" value="202410370110300@student.umm.ac.id" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Nomor Telepon / WhatsApp:</label>
+                    <input type="text" id="phone" value="081234567890" required>
+                </div>
+                <button type="submit" class="btn-save">Simpan Perubahan</button>
+            </form>
+        </div>
+
+        <!-- Kartu Pengaitan E-Wallet -->
+        <div class="card-box">
+            <h3>Kaitkan E-Wallet Pembayaran</h3>
+            <form onsubmit="event.preventDefault(); showToast('✓ E-Wallet berhasil dikaitkan!');">
+                <div class="form-group">
+                    <label for="ewallet">Pilih Layanan E-Wallet:</label>
+                    <select id="ewallet">
+                        <option value="gopay">GoPay</option>
+                        <option value="ovo">OVO</option>
+                        <option value="dana">DANA</option>
+                        <option value="shopeepay">ShopeePay</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ewallet-number">Nomor Akun / No. HP E-Wallet:</label>
+                    <input type="text" id="ewallet-number" placeholder="08xxxxxxxxxx" required>
+                </div>
+                <button type="submit" class="btn-save">Kaitkan E-Wallet</button>
+            </form>
+        </div>
+
+        <!-- Kartu Pengajuan Stand ke Admin -->
+        <div class="card-box stand-proposal-section">
+            <h3>Ingin Membuka Stand di Kantin Kampus?</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">
+                Sebagai pembeli, Anda dapat mengajukan permohonan pembukaan stand baru kepada Admin kantin. Setelah disetujui (Acc), status akun Anda akan diperbarui menjadi Penjual.
+            </p>
+            <button type="button" class="btn-proposal" onclick="showToast('✓ Formulir pengajuan stand terkirim ke Admin!')">Ajukan Stand Baru ke Admin</button>
+        </div>
+    </main>
+
+    <!-- Toast Notification Element -->
+    <div id="toast-notification">Notifikasi Berhasil</div>
+
+    <footer><p>&copy; 2026 TapEat Systems. Solusi Efisien Pre-Order Kantin Kampus UMM.</p></footer>
+
+    <script>
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            toast.textContent = message;
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
+        }
+    </script>
+
+</body>
+</html>
