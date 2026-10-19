@@ -1,0 +1,42 @@
+[
+  {
+    "key": "nasi-goreng",
+    "title": "Nasi Goreng Ayam",
+    "stand": "Kantin Ibu Siti - Stand 01",
+    "priceNum": 12000,
+    "price": "Rp 12.000",
+    "stock": 15,
+    "category": "makanan-berat",
+    "img": "Assets/images/nasiGoreng.jpg"
+  },
+  {
+    "key": "mie-ayam",
+    "title": "Mie Ayam Spesial",
+    "stand": "Kantin Mie Sedap - Stand 02",
+    "priceNum": 10000,
+    "price": "Rp 10.000",
+    "stock": 25,
+    "category": "makanan-berat",
+    "img": "Assets/images/nasiKuning.jpg"
+  },
+  {
+    "key": "ayam-geprek",
+    "title": "Ayam Geprek Sambal Matah",
+    "stand": "Kantin Mbak Rini - Stand 03",
+    "priceNum": 15000,
+    "price": "Rp 15.000",
+    "stock": 20,
+    "category": "makanan-berat",
+    "img": "Assets/images/nasiAyamKatsu.jpg"
+  },
+  {
+    "key": "jus-buah",
+    "title": "Jus Alpukat / Mangga",
+    "stand": "Depot Juice Segar - Stand 07",
+    "priceNum": 8000,
+    "price": "Rp 8.000",
+    "stock": 30,
+    "category": "minuman",
+    "img": "Assets/images/EstehManis.jpg"
+  }
+]
