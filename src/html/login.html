@@ -36,7 +36,7 @@
         <h1>TapEat</h1>
         <nav>
             <ul>
-                <li><a href="../../index.html">Beranda</a></li>
+                <li><a href="../../index.php">Beranda</a></li>
                 <li><a href="login.html" style="color: var(--primary-color); font-weight: 600;">Masuk / Daftar</a></li>
             </ul>
         </nav>
@@ -108,9 +108,9 @@
                 if (role === 'seller') {
                     window.location.href = '../../Penjual/dashboard.html';
                 } else if (role === 'admin') {
-                    window.location.href = 'admin.html';
+                    window.location.href = '../php/admin.php';
                 } else {
-                    window.location.href = '../../index.html';
+                    window.location.href = '../../index.php';
                 }
             }, 1200);
         }

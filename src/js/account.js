@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Select login form using action path ending with index.html
-    const loginForm = document.querySelector(".login-container form[action*='index.html']");
+    // Select login form using action path ending with index.php
+    const loginForm = document.querySelector(".login-container form[action*='index.php']");
     const registerForm = document.querySelector(".login-container form[action='login.html']");
 
     // Handle Registration
@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("currentUser", JSON.stringify(user));
                 alert(`Selamat datang, ${user.nama || user.email}!`);
                 
-                // Redirect to root index.html
-                window.location.href = "../../index.html"; 
+                // Redirect to root index.php
+                window.location.href = "../../index.php"; 
             } else {
                 alert("Email/NIM, Password, atau Peran tidak cocok!");
             }
